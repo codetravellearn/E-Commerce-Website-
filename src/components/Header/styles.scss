@@ -1,7 +1,8 @@
 .header{
     height: 6.5rem;
     box-shadow:0 2px 4px 0 rgba(0,0,0,.1);
-
+    background-color:black;
+    color:#ec2f7b;
 
     .wrap{
         max-width: 1450px;
@@ -39,12 +40,18 @@
             }
 
             li{
+                display: inline-block;
+                margin-right: 1.5rem;
                 list-style-type: none;
+
+                &:last-child{
+                    margin-right: 0;
+                }
 
                 a{
                     font-size: 1.8rem;
                     line-height: 1;
-                    color:black;
+                    color:#ec2f7b;
                     text-decoration: none;
                     text-transform: uppercase;
                 }
