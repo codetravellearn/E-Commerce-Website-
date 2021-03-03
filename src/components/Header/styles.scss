@@ -27,6 +27,40 @@
                 margin: 0;
             }
         }    
+
+        nav{
+            display:block;
+            width:100%;
+            padding:0;
+            margin:0;
+            height:100%;
+            
+            ul, ul li{
+                padding :0;
+                margin: 0;
+                height:100%;
+            }
+
+            ul {
+                text-align: center;
+                 li{
+                     display: inline-block;
+                     margin: 0 10px;
+                     list-style-type:none;
+                
+                 a{
+                    font-size: 1.8rem;
+                    line-height: 6.5rem;
+                    vertical-align: middle;
+                    color:#ec2f7b;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    cursor: pointer;
+                 }
+
+                };
+            }
+        }
         .callToActions {
             position:absolute;
             top:50%; right: 10px;
@@ -55,6 +89,7 @@
                     color:#ec2f7b;
                     text-decoration: none;
                     text-transform: uppercase;
+                    cursor: pointer;
                 }
             }
         }
