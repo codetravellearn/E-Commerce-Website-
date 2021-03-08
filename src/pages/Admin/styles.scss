@@ -7,7 +7,6 @@
       width: 100%;
       padding: 0;
       margin: 0 auto;
-      background-color: #ec2f7b;
       color:white;
   
       ul, li {
@@ -33,11 +32,11 @@
     color:white;
   }
 
-    table{
+    table.results{
       tr{
-
+        background-color:grey;
         &:nth-child(even){
-            background-color: grey;
+            background-color: rgb(155, 5, 55);
         }
         .thumb {
           width:15.0rem;

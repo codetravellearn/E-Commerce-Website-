@@ -1,11 +1,12 @@
-import React, { useState,useEffect } from 'react';
-import './styles.scss';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductStart, fetchProductsStart, deleteProductStart } from './../../redux/Products/products.actions';
 import Modal from './../../components/Modal';
-import FormSelect from './../../components/Forms/FormSelect';
 import FormInput from './../../components/Forms/FormInput';
+import FormSelect from './../../components/Forms/FormSelect';
 import Button from './../../components/Forms/Button';
+import LoadMore from './../../components/LoadMore';
+import './styles.scss';
 
 const mapState = ({ productsData }) => ({
   products: productsData.products
@@ -19,15 +20,17 @@ const Admin = props => {
   const [productName, setProductName] = useState('');
   const [productThumbnail, setProductThumbnail] = useState('');
   const [productPrice, setProductPrice] = useState(0);
+
+  const { data, queryDoc, isLastPage } = products;
+
   useEffect(() => {
     dispatch(
       fetchProductsStart()
     );
-
   }, []);
 
   const toggleModal = () => setHideModal(!hideModal);
-
+  
   const configModal = {
     hideModal,
     toggleModal
@@ -43,7 +46,6 @@ const Admin = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-
     dispatch(
       addProductStart({
         productCategory,
@@ -52,31 +54,42 @@ const Admin = props => {
         productPrice
       })
     );
-    resetForm(); 
+    resetForm();
 
   };
 
-    return (
-      <div className="admin">
+  const handleLoadMore = () => {
+    dispatch(
+      fetchProductsStart({
+        startAfterDoc: queryDoc,
+        persistProducts: data
+      })
+    );
+  };
 
-        <div className="callToActions">
-          <ul>
-            <li>
-              <Button onClick={() => toggleModal()}>
-                Add new product
-              </Button>
-            </li>
-          </ul>
-        </div>
-  
-        <Modal {...configModal}>
-          <div className="addNewProductForm">
-            <form onSubmit={handleSubmit}>
+  const configLoadMore = {
+    onLoadMoreEvt: handleLoadMore,
+  };
 
+  return (
+    <div className="admin">
+
+      <div className="callToActions">
+        <ul>
+          <li>
+            <Button onClick={() => toggleModal()}>
+              Add new product
+            </Button>
+          </li>
+        </ul>
+      </div>
+      
+      <Modal {...configModal}>
+        <div className="addNewProductForm">
+          <form onSubmit={handleSubmit}>
             <h2>
               Add new product
             </h2>
-
             <FormSelect
               label="Category"
               options={[{
@@ -88,41 +101,37 @@ const Admin = props => {
               }]}
               handleChange={e => setProductCategory(e.target.value)}
             />
+            <FormInput
+              label="Name"
+              type="text"
+              value={productName}
+              handleChange={e => setProductName(e.target.value)}
+            />
+            <FormInput
+              label="Main image URL"
+              type="url"
+              value={productThumbnail}
+              handleChange={e => setProductThumbnail(e.target.value)}
+            />
+            <FormInput
+              label="Price"
+              type="number"
+              min="0.00"
+              max="10000.00"
+              step="0.01"
+              value={productPrice}
+              handleChange={e => setProductPrice(e.target.value)}
+            />
 
-              <FormInput
-               label="Name"
-                type="text"
-                value={productName}
-                handleChange={e => setProductName(e.target.value)}
-              />
-  
-              <FormInput
-                label="Main image URL"
-                type="url"
-                value ={productThumbnail}
-                handleChange={e => setProductThumbnail(e.target.value)}
-              />
-  
-              <FormInput
-                label="Price"
-                type="number"
-                min="0.00"
-                max="10000.00"
-                step="0.01"
-                value={productPrice}
-                handleChange={e => setProductPrice(e.target.value)}
-              />
-  
-               <Button type="submit">
+            <Button type="submit">
               Add product
             </Button>
 
-            </form>
+          </form>
         </div>
+      </Modal>
 
-        </Modal>
-        <div className="manageProducts">
-
+      <div className="manageProducts">
         <table border="0" cellPadding="0" cellSpacing="0">
           <tbody>
             <tr>
@@ -136,14 +145,13 @@ const Admin = props => {
               <td>
                 <table className="results" border="0" cellPadding="10" cellSpacing="0">
                   <tbody>
-                    {products.map((product, index) => {
+                    {(Array.isArray(data) && data.length > 0) && data.map((product, index) => {
                       const {
                         productName,
                         productThumbnail,
                         productPrice,
                         documentID
                       } = product;
-
                       return (
                         <tr key={index}>
                           <td>
@@ -167,12 +175,31 @@ const Admin = props => {
                 </table>
               </td>
             </tr>
+            <tr>
+              <td>
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table border="0" cellPadding="10" cellSpacing="0">
+                  <tbody>
+                    <tr>
+                      <td>
+                        {!isLastPage && (
+                          <LoadMore {...configLoadMore} />
+                        )}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
           </tbody>
         </table>
-       </div>
 
       </div>
-    );
+    </div>
+  );
 }
-
 export default Admin;
