@@ -76,14 +76,16 @@ const ProductResults = ({ }) => {
 
       <div className="productResults">
         {data.map((product, pos) => {
+          
           const { productThumbnail, productName, productPrice } = product;
+          
           if (!productThumbnail || !productName ||
             typeof productPrice === 'undefined') return null;
-          const configProduct = {
-            productThumbnail,
-            productName,
-            productPrice
+         
+            const configProduct = {
+            ...product
           };
+
           return (
             <Product {...configProduct} />
           );
