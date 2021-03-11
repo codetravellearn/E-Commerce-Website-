@@ -20,6 +20,7 @@ import Login from './pages/Login';
 import Recovery from './pages/Recovery';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
+import Cart from './pages/Cart';
 import ProductDetails from './pages/ProductDetails';
 import './default.scss';
 const App = props => {
@@ -48,6 +49,11 @@ const App = props => {
           </MainLayout>
         )} />
         <Route path="/product/:productID" render={() => (
+          <MainLayout>
+            <Cart />
+          </MainLayout>
+        )} />
+         <Route path="/cart" render={() => (
           <MainLayout>
             <ProductDetails />
           </MainLayout>
