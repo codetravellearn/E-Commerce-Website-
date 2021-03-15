@@ -1,5 +1,5 @@
 import cartTypes from './cart.types';
-import { handleAddToCart ,handleRemoveCartItem} from './cart.utils';
+import { handleAddToCart ,handleRemoveCartItem, handleReduceCartItem} from './cart.utils';
 
 const INITIAL_STATE = {
   cartItems: []

@@ -50,12 +50,12 @@ const App = props => {
         )} />
         <Route path="/product/:productID" render={() => (
           <MainLayout>
-            <Cart />
+            <ProductDetails />
           </MainLayout>
         )} />
          <Route path="/cart" render={() => (
           <MainLayout>
-            <ProductDetails />
+            <Cart />
           </MainLayout>
         )} />
         <Route path="/registration" render={() => (

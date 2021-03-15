@@ -74,9 +74,10 @@ export const handleFetchProduct= productID => {
     .get()
     .then(snapshot => {
       if(snapshot.exists){
-        resolve(
-          snapshot.data()
-        );
+        resolve({
+          ...snapshot.data(),
+          documentID: productID
+        });
       }
     })
     .catch(err => {
