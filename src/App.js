@@ -22,7 +22,9 @@ import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
 import Cart from './pages/Cart';
 import ProductDetails from './pages/ProductDetails';
+import Payment from './pages/Payment';
 import './default.scss';
+import PaymentDetails from './components/PaymentDetails';
 const App = props => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -56,6 +58,11 @@ const App = props => {
          <Route path="/cart" render={() => (
           <MainLayout>
             <Cart />
+          </MainLayout>
+        )} />
+        <Route path="/payment" render={() => (
+          <MainLayout>
+            <Payment />
           </MainLayout>
         )} />
         <Route path="/registration" render={() => (
