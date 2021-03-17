@@ -1,3 +1,6 @@
+import axios from'axios';
+
+
 export const checkUserIsAdmin = currentUser => {
      if (!currentUser || !Array.isArray(currentUser.userRoles)) return false;
      const { userRoles } = currentUser;
@@ -5,3 +8,7 @@ export const checkUserIsAdmin = currentUser => {
    
      return false;
    } 
+
+export const apiInstance = axios.create({
+  baseURL: 'https://e-commerce--react-redux.herokuapp.com/'
+});
