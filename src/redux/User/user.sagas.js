@@ -15,15 +15,17 @@ export function* getSnapshotFromUserAuth(user, additionalData = {}) {
       })
     );
   } catch (err) {
-    // console.log(err);
+    console.log(err);
   }
 }
 export function* emailSignIn({ payload: { email, password } }) {
   try {
-    const { user } = yield auth.signInWithEmailAndPassword(email, password);
+    const user = yield auth.signInWithEmailAndPassword(email, password).then((res) => res);
+    console.log(user);
     yield getSnapshotFromUserAuth(user);
+    
   } catch (err) {
-    // console.log(err);
+     console.log(err);
   }
 }
 export function* onEmailSignInStart() {

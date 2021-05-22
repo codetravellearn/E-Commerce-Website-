@@ -20,6 +20,11 @@ const mapState = ({ user }) => ({
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')  
     
+    const resetForm = () => {
+      setEmail('');
+      setPassword('');
+    };
+    
     useEffect(() => {
         if (currentUser) {
           resetForm();
@@ -28,10 +33,7 @@ const mapState = ({ user }) => ({
     
       }, [currentUser]);
 
-      const resetForm = () => {
-        setEmail('');
-        setPassword('');
-      };
+     
       const handleSubmit = e => {
         e.preventDefault();
         dispatch(emailSignInStart({ email, password }));
@@ -75,6 +77,10 @@ const mapState = ({ user }) => ({
                 </div>
               </div>
               <div className="links">
+              <Link to="/registration">
+              Register
+            </Link>
+            {` | `}
                 <Link to="/recovery">
                   Reset Password
                   </Link>
