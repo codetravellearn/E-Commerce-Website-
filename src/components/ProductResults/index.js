@@ -1,14 +1,17 @@
+
 import React, { useEffect } from 'react';
-import { fetchProductsStart } from "./../../redux/Products/products.actions";
-import {useHistory, useParams} from 'react-router-dom'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import { fetchProductsStart } from './../../redux/Products/products.actions';
 import Product from './Product';
+import FormSelect from './../forms/FormSelect';
 import LoadMore from './../LoadMore';
-import FormSelect from'./../Forms/FormSelect';
 import './styles.scss';
+
 const mapState = ({ productsData }) => ({
   products: productsData.products
 });
+
 const ProductResults = ({ }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -22,6 +25,7 @@ const ProductResults = ({ }) => {
       fetchProductsStart({ filterType })
     )
   }, [filterType]);
+
   const handleFilter = (e) => {
     const nextFilter = e.target.value;
     history.push(`/search/${nextFilter}`);
@@ -37,6 +41,7 @@ const ProductResults = ({ }) => {
       </div>
     );
   }
+
   const configFilters = {
     defaultValue: filterType,
     options: [{
@@ -72,17 +77,16 @@ const ProductResults = ({ }) => {
       <h1>
         Browse Products
       </h1>
+
       <FormSelect {...configFilters} />
 
       <div className="productResults">
         {data.map((product, pos) => {
-          
           const { productThumbnail, productName, productPrice } = product;
-          
           if (!productThumbnail || !productName ||
             typeof productPrice === 'undefined') return null;
-         
-            const configProduct = {
+
+          const configProduct = {
             ...product
           };
 
@@ -99,5 +103,5 @@ const ProductResults = ({ }) => {
     </div>
   );
 };
+
 export default ProductResults;
- 

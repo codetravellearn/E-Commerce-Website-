@@ -1,17 +1,17 @@
 import React from 'react';
-import {Link, useHistory }from'react-router-dom';
-import Button from './../../Forms/Button';
-import { useDispatch } from "react-redux";
-import { addProduct } from "./../../../redux/Cart/cart.actions";
-const Product = (product) => {
-  const dispatch = useDispatch(); 
-  const history = useHistory();
+import { Link, useHistory } from 'react-router-dom';
+import Button from './../../forms/Button';
+import { useDispatch } from 'react-redux';
+import { addProduct } from './../../../redux/Cart/cart.actions';
 
+const Product = (product) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const {
-      documentID,
-      productThumbnail,
-      productName,
-      productPrice
+    documentID,
+    productThumbnail,
+    productName,
+    productPrice
   } = product;
   if (!documentID || !productThumbnail || !productName ||
     typeof productPrice === 'undefined') return null;
@@ -20,10 +20,10 @@ const Product = (product) => {
     type: 'button'
   };
 
-  const handleAddToCart = (product) =>{
+  const handleAddToCart = (product) => {
     if (!product) return;
     dispatch(
-        addProduct(product)
+      addProduct(product)
     );
     history.push('/cart');
   };
@@ -31,7 +31,7 @@ const Product = (product) => {
   return (
     <div className="product">
       <div className="thumb">
-        <Link to = {`/product/${documentID}`}>
+        <Link to={`/product/${documentID}`}>
           <img src={productThumbnail} alt={productName} />
         </Link>
       </div>
@@ -40,14 +40,14 @@ const Product = (product) => {
         <ul>
           <li>
             <span className="name">
-              <Link to = {`/product/${documentID}`}>
-                  {productName}
+              <Link to={`/product/${documentID}`}>
+                {productName}
               </Link>
             </span>
           </li>
           <li>
             <span className="price">
-              {productPrice}
+              £{productPrice}
             </span>
           </li>
           <li>
@@ -64,4 +64,4 @@ const Product = (product) => {
   );
 };
 
-export default Product; 
+export default Product;
