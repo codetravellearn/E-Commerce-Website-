@@ -3,8 +3,9 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductStart, setProduct } from './../../redux/Products/products.actions';
 import { addProduct } from './../../redux/Cart/cart.actions';
-import Button from './../Forms/Button';
+import Button from './../forms/Button';
 import './styles.scss';
+
 const mapState = state => ({
   product: state.productsData.product
 });
@@ -21,16 +22,20 @@ const ProductCard = ({}) => {
     productPrice,
     productDesc,
   } = product;
+
   useEffect(() => {
     dispatch(
       fetchProductStart(productID)
     )
+
     return () => {
       dispatch(
         setProduct({})
       )
     }
+
   }, []);
+
   const handleAddToCart = (product) => {
     if (!product) return;
     dispatch(
@@ -42,6 +47,7 @@ const ProductCard = ({}) => {
   const configAddToCartBtn = {
     type: 'button'
   }
+
   return (
     <div className="productCard">
       <div className="hero">
@@ -56,7 +62,7 @@ const ProductCard = ({}) => {
           </li>
           <li>
             <span>
-            ₹{productPrice}
+              £{productPrice}
             </span>
           </li>
           <li>
@@ -76,4 +82,5 @@ const ProductCard = ({}) => {
     </div>
   );
 }
+
 export default ProductCard;
